@@ -74,3 +74,7 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+.photographer_img, .photographer_vid {
+    width: 250px;
+}
