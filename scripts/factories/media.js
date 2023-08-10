@@ -4,11 +4,12 @@ function mediaFactory(media) {
     function getMediaCardDOM() {
 
         const  photographerMedia = document.createElement('article');
+        photographerMedia.classList.add("media");
         photographerMedia.setAttribute("id", id);
 
         if (image) {
             const photographerPicture = createMediaElement("img", `assets/images/${photographerId}/${image}`, title);
-            photographerPicture.classList.add("photographer_img");
+            photographerPicture.classList.add("photographer_pic");
             photographerMedia.appendChild(photographerPicture);
         }
 
@@ -18,25 +19,33 @@ function mediaFactory(media) {
             photographerMedia.appendChild(photographerVideo);
         }
 
-        const photographerTitle = document.createElement('h3');
+        const photographerMediaInfo = document.createElement('div');
+        photographerMediaInfo.classList.add("photographer_media_info");
+
+        const photographerTitle = document.createElement('h2');
         photographerTitle.textContent = title;
         photographerTitle.classList.add("photographer_title");
+
+        const boxLikes = document.createElement('div');
+        boxLikes.classList.add("box_likes");
 
         const photographerLikes = document.createElement('p');
         photographerLikes.textContent = `${likes}`;
         photographerLikes.classList.add("photographer_likes");
 
         const icon = document.createElement('i');
-        icon.classList.add("fa-regular",  "fa-heart", "icon_Likes");
+        icon.classList.add("fa-regular",  "fa-heart", "icon_likes");
 
         const photographerPrice = document.createElement('p');
         photographerPrice.textContent = `${price}€/jour`;
         photographerPrice.classList.add("photgrapher_price", "photographer_price_bis");
 
+        photographerMedia.appendChild(photographerMediaInfo);
+        photographerMediaInfo.appendChild(photographerTitle);
+        photographerMediaInfo.appendChild(boxLikes);
+        boxLikes.appendChild(photographerLikes);
+        boxLikes.appendChild(icon);
 
-        photographerMedia.appendChild(photographerTitle);
-        photographerMedia.appendChild(photographerLikes);
-        photographerMedia.appendChild(icon);
         return photographerMedia;
     }
 

@@ -1,11 +1,17 @@
+@import url("style.css");
+
 #contact_modal {
     display: none;
 }
 
 .photograph-header {
     background-color: #FAFAFA;
-    height: 300px;
-    margin: 0 100px;
+    height: 18.75em;
+    margin: 0 6.25em;
+    padding: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .contact_button {
@@ -75,6 +81,118 @@ form input {
     border-radius: 5px;
 }
 
-.photographer_img, .photographer_vid {
-    width: 250px;
+.photographer_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
+
+.photographer_name_bis {
+    font-size: 4em;
+    font-weight: 400;
+}
+
+.photographer_location_bis {
+    font-size: 1.5em;
+    font-weight: 400;
+}
+
+.photographer_tagline_bis {
+    font-size: 1.125em;
+}
+
+.photographer_stats {
+    position: fixed;
+    background-color: #DB8876;
+    right: 40px;
+    bottom: -10px;
+    padding: 10px;
+}
+
+.photographer_price_bis {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+ .photographer_sort {
+    display: flex;
+    align-items: center;
+    margin: 20px 100px;
+ }
+
+ .sort {
+    font-size: 1.125em;
+    font-weight: 700;
+ }
+
+.sort_dropdown {
+    margin-left: 20px;
+}
+
+.sort_button {
+    background-color: #901C1C;
+    color: #fff;
+    font-size: 1.125em;
+    font-weight: 700;
+    padding: 11px;
+    border-radius: 5px;
+    width: 170px;
+    height: 70px;
+    cursor: pointer;
+    border: none;
+}
+
+.sort_button i {
+    margin-left: 20px;
+}
+
+.photograph-media {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 6.25em;
+}
+
+.photographer_pic, .photographer_vid {
+   width: 21.875em;
+   height: 18.75em;
+   object-fit: cover;
+   border-radius: 5px;
+   margin-top: 2em;
+}
+
+.photographer_media_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.photographer_title {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #901C1C;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.box_likes {
+    display: flex;
+    align-items: center;
+    color: #901C1C;
+    font-size: 1.5em;
+}
+
+.photographer_likes {
+    font-weight: 600;
+}
+
+.icon_likes {
+    margin-left: 6px;
+}
+
+
+
+
