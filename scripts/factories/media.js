@@ -8,15 +8,37 @@ function mediaFactory(media) {
         photographerMedia.setAttribute("id", id);
 
         if (image) {
-            const photographerPicture = createMediaElement("img", `assets/images/${photographerId}/${image}`, title);
+            const photographerPicture = createMediaElement("img", `assets/images/${photographerId}/${image}`, title, date);
+            photographerPicture.classList.add("media_card");
             photographerPicture.classList.add("photographer_pic");
+            photographerMedia.setAttribute("date", date);
+            photographerPicture.setAttribute('tabindex', '0');            
             photographerMedia.appendChild(photographerPicture);
+            photographerPicture.addEventListener('click', function() {
+                displayLightbox(photographerPicture);
+            });
+            photographerPicture.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    displayLightbox(photographerPicture);
+                }
+            });
         }
 
         if (video) {
-            const photographerVideo = createMediaElement("video", `assets/images/${photographerId}/${video}`, title);
+            const photographerVideo = createMediaElement("video", `assets/images/${photographerId}/${video}`, title, date);
+            photographerVideo.classList.add("media_card");
             photographerVideo.classList.add("photographer_vid");
+            photographerMedia.setAttribute("date", date);
+            photographerVideo.setAttribute('tabindex', '0');
             photographerMedia.appendChild(photographerVideo);
+            photographerVideo.addEventListener('click', function() {
+                displayLightbox(photographerVideo);
+            });
+            photographerVideo.addEventListener('keydown', function (e) {    
+                if (e.key === 'Enter' || e.key === ' ') {
+                    displayLightbox(photographerVideo);
+                }
+            });
         }
 
         const photographerMediaInfo = document.createElement('div');
@@ -36,10 +58,35 @@ function mediaFactory(media) {
         const icon = document.createElement('i');
         icon.classList.add("fa-regular",  "fa-heart", "icon_likes");
 
-        const photographerPrice = document.createElement('p');
-        photographerPrice.textContent = `${price}€/jour`;
-        photographerPrice.classList.add("photgrapher_price", "photographer_price_bis");
+        let liked = media.liked || false;
 
+        function likeClick() {
+            const totalLikes = document.querySelector(".total_likes");
+
+            if (!liked) {
+                photographerLikes.textContent++;
+                totalLikes.textContent++;
+                icon.classList.add("fa-solid");
+                liked = true;
+    
+            } else {
+                photographerLikes.textContent--;
+                totalLikes.textContent--;
+                icon.classList.remove("fa-solid");
+                liked = false;
+            }
+        
+        }
+        
+        icon.addEventListener('click', likeClick)
+
+        icon.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                likeClick();
+            }
+        });
+        icon.setAttribute('tabindex', '0');
+        
         photographerMedia.appendChild(photographerMediaInfo);
         photographerMediaInfo.appendChild(photographerTitle);
         photographerMediaInfo.appendChild(boxLikes);
@@ -48,13 +95,17 @@ function mediaFactory(media) {
 
         return photographerMedia;
     }
-
+    
     function createMediaElement(tag, src, alt) {
         const element = document.createElement(tag);
         element.setAttribute("src", src);
-        element.setAttribute("alt", alt);
+        element.setAttribute("title", alt);
+        if (tag === "img") {
+            element.setAttribute("alt", alt);
+        }
         return element;
     }
+
 
     return { id, photographerId, title, image, video, likes, date, price, getMediaCardDOM };
 }

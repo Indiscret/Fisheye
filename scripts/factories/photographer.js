@@ -1,4 +1,4 @@
-function photographerFactory(photographer) {
+function photographerFactory(photographer, media) {
     const { name, portrait, id, city, country, tagline, price } = photographer;
 
     const picture = `assets/photographers/${portrait}`;
@@ -7,7 +7,7 @@ function photographerFactory(photographer) {
         const photographerCard = document.createElement('article');
 
         const photographerLink = document.createElement('a');
-        photographerLink.setAttribute("href", `/photographer.html?id=${id}`);
+        photographerLink.setAttribute("href", `./photographer.html?id=${id}`);
         photographerLink.setAttribute("aria-label", `Voir les détails du photographe ${name}` );
         photographerLink.classList.add("photographer_link");
 
@@ -41,7 +41,7 @@ function photographerFactory(photographer) {
         return (photographerCard);
     }
     
-    function getPhotographerCardDOM() {
+    async function getPhotographerCardDOM() {
         const photographerSection = document.querySelector(".photograph-header");
         const contactButton = document.querySelector(".contact_button");
 
@@ -68,6 +68,16 @@ function photographerFactory(photographer) {
         const photographerStats = document.createElement('div');
         photographerStats.classList.add("photographer_stats");
 
+        const boxLikes = document.createElement('div');
+        boxLikes.classList.add("box_likes", "box_likes_bis");
+
+        const likesCount = document.createElement('p');
+        likesCount.textContent = `${ await displayTotalLikes(id, media)}`;
+        likesCount.classList.add("total_likes");
+
+        const icon = document.createElement('i');
+        icon.classList.add("fa-solid",  "fa-heart", "icon_likes");
+
         const photographerPrice = document.createElement('p');
         photographerPrice.textContent = `${price}€/jour`;
         photographerPrice.classList.add("photgrapher_price", "photographer_price_bis");
@@ -79,6 +89,9 @@ function photographerFactory(photographer) {
         photographerSection.insertBefore(photographerInfo, contactButton);
         photographerSection.appendChild(photographerPicture);
         photographerSection.appendChild(photographerStats);
+        photographerStats.appendChild(boxLikes);
+        boxLikes.appendChild(likesCount);
+        boxLikes.appendChild(icon);
         photographerStats.appendChild(photographerPrice);
 
         return (photographerInfo);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -10,41 +10,78 @@
   </head>
   <body>
     <header>
-      <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="Logo Fisheye"/></a>
+      <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="Logo Fisheye : lien vers la page d'accueil"/></a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <section class="photograph-header">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </section>
       <section class="photographer_sort">
-        <p class="sort">Trier par</p>
-        <div class="sort_dropdown sort_dropdown_open" aria-label="dropdown">
-          <button id="sort_button" class="sort_button button">Popularité
-            <i class="fa-solid fa-chevron-up"></i>
-          </button>
-          </div>
-       </div>
+        <p class="sort">Triez par</p> 
+        <div class="sort_dropdown">
+            <button id="sort_button" class="sort_button" type="button" role="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-options" aria-label="Sort by">
+                <span id="current_filter">Popularité</span>
+                <span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+            </button>
+            <ul class="dropdown_content" aria-hidden="true">
+                <li role="option">
+                    <button class="sort_button" type="button" tabindex="0" aria-label="Sort by title" data-sort="Titre">Titre</button>
+                </li>
+                <li role="option">
+                    <button class="sort_button" type="button" tabindex="0" aria-label="Sort by date" data-sort="Date">Date</button>
+                </li>
+                <li role="option">
+                    <button class="sort_button" type="button" tabindex="0" aria-label="Sort by popularity" data-sort="Popularité">Popularité</button>
+                </li>
+            </ul>
+        </div>
       </section>
       <section class="photograph-media"></section>
     </main>
     <div id="contact_modal">
-			<div class="modal">
+			<div class="modal" aria-hidden="true" role="dialog">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img class="modal_close" src="assets/icons/close.svg" alt="Close button icon" role="button" onclick="closeModal()" />
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
+				<form id="form_contact">
+					<div class="form_data">
+						<label for="first">Prénom</label>
+						<input class="text-control" aria-labelledby="firstName_label" type="text" id="first" name="first" aria-required="true" >
+          </div>
+          <div class="form_data">
+            <label for="last">Nom</label>
+            <input class="text-control" aria-labelledby="lastName_label" type="text" id="last" name="last" aria-required="true">
+          </div>
+          <div class="form_data">
+            <label for="email">Email</label>
+            <input class="text-control" aria-labelledby="email_label" type="email" id="email" name="email" aria-required="true">
+          </div>
+          <div class="form_data">
+            <label for="message">Votre message</label>
+            <input class="text-control" aria-labelledby="form_message_label" type="text" id="message" name="message" aria-required="true">
+          </div> 
+          <button class="contact_button" type="submit">Envoyer</button>
 				</form>
 			</div>
 		</div>
+    <div id="lightbox" aria-label="lightbox" aria-hidden="true" role="dialog">
+      <button id="lightbox_arrow_previous" aria-label="previous image" onclick="previousMedia()">
+        <i class="fa-sharp fa-solid fa-chevron-left"></i>
+      </button>
+      <div id="lightbox_content"></div>
+      <button id="lightbox_arrow_next" aria-label="next image" onclick="nextMedia()">
+        <i class="fa-sharp fa-solid fa-chevron-right"></i>
+      </button>
+      <button id="lightbox_close" aria-label="close dialog" onclick="closeLightbox()">
+        <i class="fa-sharp fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/factories/photographer.js"></script>
     <script src="scripts/factories/media.js"></script>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+    <script src="scripts/utils/contactForm.js"></script>
+    <script src="scripts/utils/lightbox.js"></script>
+    <script src="scripts/utils/sort.js"></script>
   </body>
 </html>
