@@ -1,14 +1,19 @@
+/* eslint no-undef:0*/
+/* eslint no-unused-vars:0*/
+
+// Fonction factory pour les photographes 
 function photographerFactory(photographer, media) {
     const { name, portrait, id, city, country, tagline, price } = photographer;
 
     const picture = `assets/photographers/${portrait}`;
 
+    // Récupération et création des élements du Dom  de tous les photographes
     function getUserCardDOM() {
         const photographerCard = document.createElement('article');
 
         const photographerLink = document.createElement('a');
         photographerLink.setAttribute("href", `./photographer.html?id=${id}`);
-        photographerLink.setAttribute("aria-label", `Voir les détails du photographe ${name}` );
+        photographerLink.setAttribute("aria-label", `Voir les détails du photographe ${name}`);
         photographerLink.classList.add("photographer_link");
 
         const photographerPicture = document.createElement('img');
@@ -40,14 +45,15 @@ function photographerFactory(photographer, media) {
         photographerCard.appendChild(photographerPrice);
         return (photographerCard);
     }
-    
+
+    // Récupération et création des élements du DOM pour le photographe 
     async function getPhotographerCardDOM() {
         const photographerSection = document.querySelector(".photograph-header");
         const contactButton = document.querySelector(".contact_button");
 
         const photographerInfo = document.createElement('div');
         photographerInfo.classList.add("photographer_info");
-        
+
         const photographerName = document.createElement('h2');
         photographerName.textContent = name;
         photographerName.classList.add("photographer_name", "photographer_name_bis");
@@ -72,11 +78,11 @@ function photographerFactory(photographer, media) {
         boxLikes.classList.add("box_likes", "box_likes_bis");
 
         const likesCount = document.createElement('p');
-        likesCount.textContent = `${ await displayTotalLikes(id, media)}`;
+        likesCount.textContent = `${await displayTotalLikes(id, media)}`;
         likesCount.classList.add("total_likes");
 
         const icon = document.createElement('i');
-        icon.classList.add("fa-solid",  "fa-heart", "icon_likes");
+        icon.classList.add("fa-solid", "fa-heart", "icon_likes");
 
         const photographerPrice = document.createElement('p');
         photographerPrice.textContent = `${price}€/jour`;

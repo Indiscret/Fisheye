@@ -6,23 +6,26 @@ const currentFilterElement = document.querySelector('#current_filter');
 
 const optionButtons = document.querySelectorAll('.dropdown_content button');
 
+// Gérer la selection d'une option dans la liste déroulante
 function handleOptionSelection(option) {
     if (option.textContent !== currentFilterElement.textContent) {
         currentFilterElement.textContent = option.textContent;
     }
     closeDropdown();
-    
+
 }
 
+// Ferme la liste déroulante
 function closeDropdown() {
     buttonSort.setAttribute('aria-expanded', 'false');
     icon.classList.remove('rotate');
     dropdown.style.display = 'none';
 }
 
+// Mets à jour les options en fonction du filtre actuel
 function updateOptions() {
     const currentFilter = currentFilterElement.textContent;
-    optionButtons.forEach(function(optionButton) {
+    optionButtons.forEach(function (optionButton) {
         const optionLabel = optionButton.textContent;
         if (currentFilter === 'Popularité') {
             optionButton.style.display = optionLabel === 'Titre' || optionLabel === 'Date' ? 'block' : 'none';
@@ -34,13 +37,15 @@ function updateOptions() {
     });
 }
 
-window.addEventListener('load', function() {
+// Ajout d'event "load" pour initialiser l'état de la liste
+window.addEventListener('load', function () {
     buttonSort.setAttribute('aria-expanded', 'false');
     dropdown.style.display = 'none';
     updateOptions();
 });
 
-buttonSort.addEventListener('click', function() {
+// Ajout d'un event aau clique sur le boutton tri pour ouvrir/fermer la liste
+buttonSort.addEventListener('click', function () {
     const isExpanded = buttonSort.getAttribute('aria-expanded') === 'true';
 
     buttonSort.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
@@ -48,6 +53,7 @@ buttonSort.addEventListener('click', function() {
     dropdown.style.display = isExpanded ? 'none' : 'block';
 });
 
+// Tri les médias par titre
 function sortByTitle() {
     const photographMain = document.querySelector(".photograph-media");
     const mediaContainer = Array.from(photographMain.querySelectorAll(".media"));
@@ -63,6 +69,7 @@ function sortByTitle() {
     mediaContainer.forEach(container => photographMain.appendChild(container));
 }
 
+// Tri les médias par date
 function sortByDate() {
     console.log('sortByDate function called');
     const photographMain = document.querySelector(".photograph-media");
@@ -81,6 +88,7 @@ function sortByDate() {
     mediaContainer.forEach(container => photographMain.appendChild(container));
 }
 
+// Tri les média par nombre de likes dans l'ordre croissant
 function sortByLikes() {
     const photographMain = document.querySelector(".photograph-media");
     const mediaContainer = Array.from(photographMain.querySelectorAll(".media"));
@@ -96,9 +104,9 @@ function sortByLikes() {
     mediaContainer.forEach(container => photographMain.appendChild(container));
 }
 
-
-optionButtons.forEach(function(optionButton) {
-    optionButton.addEventListener('click', function() {
+// Ecoute les clics sur les boutons de la liste et récupère l'option choisie pour l'afficher
+optionButtons.forEach(function (optionButton) {
+    optionButton.addEventListener('click', function () {
         handleOptionSelection(optionButton);
         updateOptions();
         closeDropdown();
@@ -106,7 +114,7 @@ optionButtons.forEach(function(optionButton) {
 
         const selectedOption = currentFilterElement.textContent;
         if (selectedOption === 'Date') {
-           sortByDate();
+            sortByDate();
         } else if (selectedOption === 'Popularité') {
             sortByLikes();
         } else if (selectedOption === 'Titre') {

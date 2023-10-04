@@ -1,9 +1,14 @@
+/* eslint no-undef:0*/
+/* eslint no-unused-vars:0*/
+
+// Fonction factory pour les medias du photographe
 function mediaFactory(media) {
     const { id, photographerId, title, image, video, likes, date, price } = media;
 
+    // Récupération et création des élements medias du DOM 
     function getMediaCardDOM() {
 
-        const  photographerMedia = document.createElement('article');
+        const photographerMedia = document.createElement('article');
         photographerMedia.classList.add("media");
         photographerMedia.setAttribute("id", id);
 
@@ -12,9 +17,10 @@ function mediaFactory(media) {
             photographerPicture.classList.add("media_card");
             photographerPicture.classList.add("photographer_pic");
             photographerMedia.setAttribute("date", date);
-            photographerPicture.setAttribute('tabindex', '0');            
+            photographerPicture.setAttribute('tabindex', '0');
             photographerMedia.appendChild(photographerPicture);
-            photographerPicture.addEventListener('click', function() {
+            photographerPicture.addEventListener('click', function () {
+                // eslint-disable-next-line no-undef
                 displayLightbox(photographerPicture);
             });
             photographerPicture.addEventListener('keydown', function (e) {
@@ -31,10 +37,10 @@ function mediaFactory(media) {
             photographerMedia.setAttribute("date", date);
             photographerVideo.setAttribute('tabindex', '0');
             photographerMedia.appendChild(photographerVideo);
-            photographerVideo.addEventListener('click', function() {
+            photographerVideo.addEventListener('click', function () {
                 displayLightbox(photographerVideo);
             });
-            photographerVideo.addEventListener('keydown', function (e) {    
+            photographerVideo.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     displayLightbox(photographerVideo);
                 }
@@ -56,10 +62,11 @@ function mediaFactory(media) {
         photographerLikes.classList.add("photographer_likes");
 
         const icon = document.createElement('i');
-        icon.classList.add("fa-regular",  "fa-heart", "icon_likes");
+        icon.classList.add("fa-regular", "fa-heart", "icon_likes");
 
         let liked = media.liked || false;
 
+        // Création du système de likes des medias  et l'update du total likes
         function likeClick() {
             const totalLikes = document.querySelector(".total_likes");
 
@@ -68,16 +75,16 @@ function mediaFactory(media) {
                 totalLikes.textContent++;
                 icon.classList.add("fa-solid");
                 liked = true;
-    
+
             } else {
                 photographerLikes.textContent--;
                 totalLikes.textContent--;
                 icon.classList.remove("fa-solid");
                 liked = false;
             }
-        
+
         }
-        
+
         icon.addEventListener('click', likeClick)
 
         icon.addEventListener('keydown', function (e) {
@@ -86,7 +93,7 @@ function mediaFactory(media) {
             }
         });
         icon.setAttribute('tabindex', '0');
-        
+
         photographerMedia.appendChild(photographerMediaInfo);
         photographerMediaInfo.appendChild(photographerTitle);
         photographerMediaInfo.appendChild(boxLikes);
@@ -95,7 +102,7 @@ function mediaFactory(media) {
 
         return photographerMedia;
     }
-    
+
     function createMediaElement(tag, src, alt) {
         const element = document.createElement(tag);
         element.setAttribute("src", src);

@@ -1,4 +1,7 @@
-//Mettre le code JavaScript lié à la page photographer.html
+/* eslint no-undef:0*/
+/* eslint no-unused-vars:0*/
+
+// Récupere les données des photographes depuis le Json
 async function getPhotographers() {
     const dataUrl = './data/photographers.json';
     try {
@@ -12,12 +15,12 @@ async function getPhotographers() {
         console.error('Erreur', error);
     }
 }
-
+// Affiche les données d'un photographe et ses médias via l'id
 async function displayData(photographers, media) {
     const photographersMedia = document.querySelector(".photograph-media");
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get('id'));
-    
+
     const photographer = photographers.find((photographer) => photographer.id === id);
 
     if (photographer) {
@@ -36,7 +39,7 @@ async function displayData(photographers, media) {
         })
     }
 }
-
+// Calcule le total des likes d'un photographe
 async function displayTotalLikes(photographerId, media) {
     const photographerMedia = media.filter((media) => media.photographerId === photographerId);
     let totalLikes = 0;
